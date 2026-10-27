@@ -1,7 +1,9 @@
 ### Автор(Author)
-https://t.me/mods_base # Лучшие моды (Mods for BeamNG.drive)
+https://t.me/mods_base // Лучшие моды (Mods for BeamNG.drive)
 
 # BeamNG Media Bridge
+
+### ИСПОЛЬЗОВАТЬ ИСХОДНЫЙ КОД С УПОМИНАНИЕМ АВТОРА/РЕПОЗИТОРИЯ
 
 Local Windows media-session bridge for a BeamNG.drive UI widget.
 
