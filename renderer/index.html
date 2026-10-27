@@ -19,12 +19,14 @@
             <section class="card run">
                 <h3 data-i18n="launchGame">Запустить игру</h3>
                 <p data-i18n="steamOnly">Только Steam-версия</p>
-                <a class="cta" href="steam://rungameid/284160" rel="noopener noreferrer" data-i18n="launch">Запустить</a>
+                <a class="cta" href="steam://rungameid/284160" rel="noopener noreferrer"
+                    data-i18n="launch">Запустить</a>
             </section>
             <section class="card author">
                 <h3 data-i18n="mods">Моды для BeamNG.drive</h3>
                 <p data-i18n="modsInfo">Новые релизы, обновления и исходники — в Telegram-канале.</p>
-                <a class="cta" href="https://t.me/mods_base" target="_blank" rel="noopener noreferrer" data-i18n="openChannel">Открыть @mods_base</a>
+                <a class="cta" href="https://t.me/mods_base" target="_blank" rel="noopener noreferrer"
+                    data-i18n="openChannel">Открыть @mods_base</a>
             </section>
             <section class="card player" aria-label="Текущий трек" data-i18n-aria="currentTrack">
                 <div class="cover" id="cover"></div>
@@ -32,34 +34,14 @@
                     <h2 id="track" data-i18n="waitingPlayer">Ожидание плеера</h2>
                     <p id="artist" data-i18n="startMusic">Запустите музыку в Windows</p>
                     <div class="controls">
-                        
-                        <button data-command="toggle" id="toggle" aria-label="Пауза или продолжение" data-i18n-aria="playPause">▶</button>
+
+                        <button data-command="toggle" id="toggle" aria-label="Пауза или продолжение"
+                            data-i18n-aria="playPause">▶</button>
 
                     </div>
-</div>
-            </section>
-            <section class="card info">
-                <h3 data-i18n="howToConnect">Как подключить</h3>
-                <ol>
-                    <li data-i18n="stepOne">Добавьте MediaWidget.zip в папку модов BeamNG.drive.</li>
-                    <li data-i18n="stepTwo">Добавьте виджет через меню Apps внутри игры.</li>
-                    <li data-i18n="stepThree">Оставьте это приложение запущенным во время игры.</li>
-                </ol>
-                <button id="folder" class="ghost" data-i18n="openDataFolder">Открыть папку данных BeamNG</button>
+                </div>
             </section>
             
-            <section class="card privacy">
-                <h3 data-i18n="privacyTitle">Обложка и медиаинформация</h3>
-                <p data-i18n="privacyText">Приложение читает название трека, исполнителя, альбом, состояние и обложку текущего медиа-сеанса Windows.
-                    Обложка передаётся виджету локально в поле <code>thumbnail</code> как data URL и записывается в
-                    <code>%LOCALAPPDATA%\BeamNG\BeamNG.drive\current\media_state.json</code>. HTTP и WebSocket доступны
-                    только на этом компьютере: 127.0.0.1:12345 и 127.0.0.1:12346.</p>
-                <p id="error" class="error"></p>
-                <p id="notice" class="notice"></p>
-                <p id="artwork-status" class="notice"></p>
-                <div class="update-controls"><button id="check-updates" class="ghost" data-i18n="checkUpdates">Проверить обновления</button><a id="release-link" class="ghost" href="#" hidden data-i18n="openRelease">Открыть страницу релиза</a></div>
-                <p id="update-status" class="notice" role="status" aria-live="polite"></p>
-            </section>
         </div>
 
         <footer>
