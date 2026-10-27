@@ -478,3 +478,6 @@ footer a:hover {
     border-color: var(--line-hi);
     color: var(--lume);
 }
+#check-updates { margin-top: 8px; }
+#release-link { display: inline-block; text-decoration: none; margin-top: 8px; }
+#release-link[hidden] { display: none; }
