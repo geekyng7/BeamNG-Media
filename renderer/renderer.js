@@ -1,4 +1,5 @@
 const $ = id => document.getElementById(id);
+function setOptionalText(id, value) { const element = $(id); if (element) element.textContent = value; }
 let current = {}, pending = false, noticeMessage = '', releaseUrl = '';
 let language = localStorage.getItem('beamng-media-bridge-language') === 'en' ? 'en' : 'ru';
 
@@ -151,9 +152,9 @@ function render(state = {}) {
     ? (state.is_playing ? t('playing') : t('paused'))
     : (state.error ? t('statusError') : t('waiting'));
   $('status').classList.toggle('online', !!state.session);
-  $('error').textContent = localizeError(state.error);
-  $('artwork-status').textContent = localizeArtworkStatus(state.artworkStatus);
-  $('notice').textContent = localizeError(noticeMessage);
+  setOptionalText('error', localizeError(state.error));
+  setOptionalText('artwork-status', localizeArtworkStatus(state.artworkStatus));
+  setOptionalText('notice', localizeError(noticeMessage));
   $('toggle').textContent = state.is_playing ? 'Ⅱ' : '▶';
   $('toggle').setAttribute('aria-label', state.is_playing
     ? (language === 'en' ? 'Pause' : 'Пауза')
@@ -194,17 +195,18 @@ applyLanguage();
 window.bridge.getState().then(render);
 window.bridge.onState(render);
 $('toggle').addEventListener('click', toggle);
-$('folder').addEventListener('click', () => window.bridge.openBeamngFolder());
-$('check-updates').addEventListener('click', async () => {
-  const button=$('check-updates'), status=$('update-status'), link=$('release-link');
-  button.disabled=true; status.textContent=t('checkingUpdates'); releaseUrl=''; link.hidden=true;
+$('folder')?.addEventListener('click', () => window.bridge.openBeamngFolder());
+const updateButton = $('check-updates');
+if (updateButton) updateButton.addEventListener('click', async () => {
+  const button=$('check-updates'), link=$('release-link');
+  button.disabled=true; setOptionalText('update-status', t('checkingUpdates')); releaseUrl=''; if(link) link.hidden=true;
   try {
     const result=await window.bridge.checkForUpdates();
-    if(result.noRelease) status.textContent=t('noRelease');
-    else if(!result.ok) status.textContent=result.error==='Release tag must match v1.2.3'?t('invalidReleaseTag'):t('updateFailed')+' '+result.error;
-    else if(result.updateAvailable){status.textContent=t('updateAvailable').replace('{version}',result.latestVersion);releaseUrl=result.releaseUrl;link.hidden=false;}
-    else status.textContent=t('upToDate').replace('{version}',result.currentVersion);
-  } catch(error){status.textContent=t('updateFailed')+' '+error.message;}
+    if(result.noRelease) setOptionalText('update-status', t('noRelease'));
+    else if(!result.ok) setOptionalText('update-status', result.error==='Release tag must match v1.2.3'?t('invalidReleaseTag'):t('updateFailed')+' '+result.error);
+    else if(result.updateAvailable){setOptionalText('update-status', t('updateAvailable').replace('{version}',result.latestVersion));releaseUrl=result.releaseUrl;if(link) link.hidden=false;}
+    else setOptionalText('update-status', t('upToDate').replace('{version}',result.currentVersion));
+  } catch(error){setOptionalText('update-status', t('updateFailed')+' '+error.message);}
   finally{button.disabled=false;}
 });
-$('release-link').addEventListener('click',async event=>{event.preventDefault();if(releaseUrl)await window.bridge.openRelease(releaseUrl);});
+$('release-link')?.addEventListener('click',async event=>{event.preventDefault();if(releaseUrl)await window.bridge.openRelease(releaseUrl);});
