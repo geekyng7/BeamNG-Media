@@ -7,14 +7,16 @@
   "license": "MIT",
   "scripts": {
     "start": "electron .",
-    "build:native": "dotnet publish native/MediaBridge/MediaBridge.csproj -c Release -r win-x64 -p:PublishSingleFile=true -p:SelfContained=true -o native/MediaBridge/bin/Release/net8.0-windows10.0.19041.0/win-x64/publish",
-    "dist": "npm run build:native && electron-builder --win nsis"
+    "generate:winrt": "dynwinrt-codegen generate --class-name Windows.Media.Control.GlobalSystemMediaTransportControlsSessionManager,Windows.Storage.Streams.DataReader,Windows.Storage.Streams.IRandomAccessStream --winmd \"C:\\Program Files (x86)\\Windows Kits\\10\\UnionMetadata\\10.0.26100.0\\Windows.winmd\" --output src/winrt-generated",
+    "dist": "electron-builder --win nsis"
   },
   "dependencies": {
+    "@microsoft/dynwinrt": "0.1.0-preview.23",
     "express": "^5.1.0",
     "ws": "^8.18.3"
   },
   "devDependencies": {
+    "@microsoft/dynwinrt-codegen": "0.1.0-preview.23",
     "electron": "^38.2.0",
     "electron-builder": "^26.0.12"
   },
@@ -29,19 +31,13 @@
       "renderer/**/*",
       "package.json"
     ],
-    "extraResources": [
-      {
-        "from": "native/MediaBridge/bin/Release/net8.0-windows10.0.19041.0/win-x64/publish/media-helper.exe",
-        "to": "media-helper.exe"
-      }
-    ],
     "asar": true,
     "win": {
       "target": [
         "nsis"
       ],
       "artifactName": "BeamNG-Media-Bridge-${version}-Setup.${ext}",
-      "icon": "circ1.ico"
+      "icon": "icon.ico"
     },
     "nsis": {
       "oneClick": false,

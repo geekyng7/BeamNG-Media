@@ -1,62 +1,113 @@
 # BeamNG Media Bridge
 
-Windows desktop application for displaying the current Windows media session and pausing/resuming it from a small local BeamNG widget.
+Local Windows media-session bridge for a BeamNG.drive UI widget.
 
-## Features
+## Русский
 
-- Current track, artist, album, artwork, play state, and timeline.
-- Pause/resume and previous/next track controls in the desktop interface and supplied BeamNG widget.
-- Artwork is sent to the widget as a `thumbnail` data URL over WebSocket and is also included in `%LOCALAPPDATA%\BeamNG\BeamNG.drive\current\media_state.json`.
-- HTTP endpoint `127.0.0.1:12345` and WebSocket `127.0.0.1:12346`; both bind only to loopback. GET/POST commands `/api/play`, `/api/pause`, `/api/next`, and `/api/prev` are supported.
-- Album artwork is capped at 4 MB. The WebSocket sends the artwork only when it changes; consumers should keep the last received image until a new `thumbnail` value arrives or the session ends.
+BeamNG Media Bridge передаёт данные активного медиа-сеанса Windows в виджет BeamNG.drive.
 
-## Requirements
+Возможности:
 
-- Windows 10 (build 17763 or newer) or Windows 11, x64.
-- Node.js 20+ and npm.
-- .NET 8 SDK or newer (not just the .NET runtime).
-- Internet access on first build to restore npm and NuGet packages.
+- название трека, исполнитель, альбом и обложка;
+- состояние воспроизведения и команды паузы, продолжения, следующего и предыдущего трека;
+- позиция и длительность трека передаются в игру для отображения движущегося таймлайна;
+- интерфейс приложения переключается между русским и английским языками; выбор сохраняется;
+- локальный обмен данными через 127.0.0.1 — приложение не отправляет медиаинформацию в интернет.
 
-## Run from source
+### Требования
 
-Open PowerShell in the project folder and run:
+- Windows 10 версии 1809 или новее, либо Windows 11, x64;
+- Node.js 22.12 или новее и npm — для запуска из исходников и сборки;
+- Windows SDK нужен только для повторной генерации WinRT-привязок. Сгенерированные файлы уже находятся в src/winrt-generated.
 
-```powershell
-npm install
-npm rebuild electron electron-winstaller
-npm run build:native
-npm start
-```
+### Запуск и сборка
 
-The native helper reads Windows Global System Media Transport Controls. Windows exposes explicit play, pause, and toggle requests for media sessions; a player can still decline a request. See [Microsoft's session API](https://learn.microsoft.com/en-us/uwp/api/windows.media.control.globalsystemmediatransportcontrolssession).
+В папке проекта выполните:
 
-## Build the installer
+    npm install
+    npm start
 
-```powershell
-npm run dist
-```
+Создать Windows-установщик NSIS:
 
-This publishes a self-contained `media-helper.exe`, then creates the installer at:
+    npm run dist
 
-```text
-release\BeamNG-Media-Bridge-1.0.0-Setup.exe
-```
+Результат сборки появится в папке release. Для обычной сборки .NET SDK не требуется.
 
-Build on Windows x64. No Python installation is needed for the released app.
+### Подключение виджета
 
-## Add it to BeamNG
+1. Установите BeamNG Media Bridge и оставьте приложение запущенным.
+2. Добавьте beamng-widget.js в пользовательский UI-мод BeamNG.drive.
+3. В игре добавьте виджет через меню Apps.
+4. Убедитесь, что музыка воспроизводится в приложении, которое публикует медиа-сеанс Windows.
 
-1. Add `MediaWidget.zip` to the BeamNG.drive mods folder and install its UI app in game.
-2. Start BeamNG Media Bridge before using the widget.
-3. The included demo widget is at `http://127.0.0.1:12345/`. A custom widget can connect to `ws://127.0.0.1:12346` and read `track`, `artist`, `album`, `is_playing`, `thumbnail`, `position`, and `duration`.
-4. The BeamNG directive sends GET /api/play, GET /api/next, and GET /api/prev; the bridge also accepts POST for those actions. WebSocket clients can send play, pause, toggle, next, or prev.
+Приложение записывает состояние в:
 
-The app reads Windows media metadata and writes local state for BeamNG. It makes no outbound network requests at runtime. Publish source together with a signed installer and checksum; signing helps identify the publisher but cannot guarantee a VirusTotal result.
+    %LOCALAPPDATA%\BeamNG\BeamNG.drive\current\media_state.json
 
+Локальные интерфейсы моста:
 
+- HTTP: http://127.0.0.1:12345
+- WebSocket: ws://127.0.0.1:12346
+- Статус: GET /status
+- Команды: /api/play, /api/pause, /api/next, /api/prev
 
-Use beamng-widget.js as the BeamNG app directive. It accepts a full thumbnail data URL or legacy raw JPEG Base64, and reads up to 8 MiB from the local state file so artwork is not truncated.
+В WebSocket можно отправлять JSON-команды, например:
 
+    {"action":"next"}
 
+Состояние включает track, artist, album, is_playing, thumbnail, position и duration. Обложка передаётся как data URL. Поддержка метаданных, обложек и команд зависит от того, что конкретный проигрыватель сообщает Windows.
 
+## English
 
+BeamNG Media Bridge forwards the active Windows media session to a BeamNG.drive widget.
+
+Features:
+
+- track title, artist, album, and artwork;
+- playback state and pause, resume, next-track, and previous-track commands;
+- track position and duration are sent to the game so the widget can display a moving timeline;
+- the desktop app can switch between Russian and English, and remembers the selection;
+- local communication uses 127.0.0.1; media information is not sent to the internet.
+
+### Requirements
+
+- Windows 10 version 1809 or later, or Windows 11, x64;
+- Node.js 22.12 or later and npm to run from source and build;
+- the Windows SDK is only needed to regenerate the WinRT bindings. Generated files are included in src/winrt-generated.
+
+### Run and build
+
+From the project folder:
+
+    npm install
+    npm start
+
+Build the Windows NSIS installer:
+
+    npm run dist
+
+The installer is created in the release folder. The normal build does not require the .NET SDK.
+
+### Add the BeamNG widget
+
+1. Install BeamNG Media Bridge and keep it running.
+2. Add beamng-widget.js to a BeamNG.drive user-interface mod.
+3. Add the widget from the in-game Apps menu.
+4. Make sure music is playing in an app that publishes a Windows media session.
+
+The bridge writes its state to:
+
+    %LOCALAPPDATA%\BeamNG\BeamNG.drive\current\media_state.json
+
+Local bridge interfaces:
+
+- HTTP: http://127.0.0.1:12345
+- WebSocket: ws://127.0.0.1:12346
+- Status: GET /status
+- Commands: /api/play, /api/pause, /api/next, /api/prev
+
+WebSocket commands are JSON, for example:
+
+    {"action":"next"}
+
+The state includes track, artist, album, is_playing, thumbnail, position, and duration. Artwork is sent as a data URL. Metadata, artwork, and command support depend on what each media player publishes to Windows.

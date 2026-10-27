@@ -30,3 +30,11 @@ pnpm-debug.log*
 Thumbs.db
 .vscode/
 .idea/
+
+# dynwinrt code generation lock files
+src/.winrt-*-dynwinrt-lock
+
+src/winrt-stream-generated/
+src/.winrt-*.dynwinrt-stage-*/
+
+src/.winrt-*.dynwinrt-lock

@@ -1,6 +1,71 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BeamNG Media Bridge</title><link rel="stylesheet" href="style.css"></head><body><main class="shell">
-<header><div class="mark">♪</div><div><h1>BeamNG Media Bridge</h1><p>Медиаинформация и пауза для BeamNG.drive</p></div><span id="status" class="pill">Подключение…</span></header>
-<section class="player"><div class="cover" id="cover">♪</div><div class="meta"><small>ТЕКУЩИЙ МЕДИА-СЕАНС</small><h2 id="track">Ожидание плеера</h2><p id="artist">Запустите музыку в Windows</p><div class="controls"><button data-command="prev" id="prev" aria-label="Предыдущий трек">⏮</button><button data-command="toggle" id="toggle" aria-label="Пауза или продолжение">▶</button><button data-command="next" id="next" aria-label="Следующий трек">⏭</button><span>Трек / пауза</span></div><div class="times"><span id="elapsed">0:00</span><span id="duration">0:00</span></div><div class="progress"><i id="progress"></i></div></div></section>
-<section class="info"><h3>Как подключить</h3><ol><li>Добавьте <b>MediaWidget.zip</b> в папку модов BeamNG.drive.</li><li>Добавьте виджет через меню Apps внутри игры.</li><li>Оставьте это приложение запущенным во время игры.</li></ol><button id="folder">Открыть папку данных BeamNG</button></section>
-<section class="privacy"><b>Обложка и медиаинформация</b><p>Приложение читает название трека, исполнителя, альбом, состояние и обложку текущего медиа-сеанса Windows. Обложка передаётся виджету локально в поле <code>thumbnail</code> как data URL и записывается в <code>%LOCALAPPDATA%\BeamNG\BeamNG.drive\current\media_state.json</code>. HTTP и WebSocket доступны только на этом компьютере: 127.0.0.1:12345 и 127.0.0.1:12346.</p><p id="error" class="error"></p><p id="notice" class="notice"></p></section><footer>Windows 10/11 · Пауза и переключение треков · обложки</footer></main><script src="renderer.js"></script></body></html>
+<!doctype html>
+<html lang="ru">
 
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>BeamNG Media Bridge</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <main class="shell">
+        <header class="top">
+            <span id="status" class="pill">Подключение…</span>
+            <button id="lang-toggle" class="lang-toggle" type="button" aria-label="Switch to English">EN</button>
+        </header>
+
+        <div class="grid">
+            <section class="card run">
+                <h3 data-i18n="launchGame">Запустить игру</h3>
+                <p data-i18n="steamOnly">Только Steam-версия</p>
+                <a class="cta" href="steam://rungameid/284160" rel="noopener noreferrer" data-i18n="launch">Запустить</a>
+            </section>
+            <section class="card author">
+                <h3 data-i18n="mods">Моды для BeamNG.drive</h3>
+                <p data-i18n="modsInfo">Новые релизы, обновления и исходники — в Telegram-канале.</p>
+                <a class="cta" href="https://t.me/mods_base" target="_blank" rel="noopener noreferrer" data-i18n="openChannel">Открыть @mods_base</a>
+            </section>
+            <section class="card player" aria-label="Текущий трек" data-i18n-aria="currentTrack">
+                <div class="cover" id="cover"></div>
+                <div class="meta">
+                    <h2 id="track" data-i18n="waitingPlayer">Ожидание плеера</h2>
+                    <p id="artist" data-i18n="startMusic">Запустите музыку в Windows</p>
+                    <div class="controls">
+                        
+                        <button data-command="toggle" id="toggle" aria-label="Пауза или продолжение" data-i18n-aria="playPause">▶</button>
+
+                    </div>
+</div>
+            </section>
+            <section class="card info">
+                <h3 data-i18n="howToConnect">Как подключить</h3>
+                <ol>
+                    <li data-i18n="stepOne">Добавьте MediaWidget.zip в папку модов BeamNG.drive.</li>
+                    <li data-i18n="stepTwo">Добавьте виджет через меню Apps внутри игры.</li>
+                    <li data-i18n="stepThree">Оставьте это приложение запущенным во время игры.</li>
+                </ol>
+                <button id="folder" class="ghost" data-i18n="openDataFolder">Открыть папку данных BeamNG</button>
+            </section>
+            
+            <section class="card privacy">
+                <h3 data-i18n="privacyTitle">Обложка и медиаинформация</h3>
+                <p data-i18n="privacyText">Приложение читает название трека, исполнителя, альбом, состояние и обложку текущего медиа-сеанса Windows.
+                    Обложка передаётся виджету локально в поле <code>thumbnail</code> как data URL и записывается в
+                    <code>%LOCALAPPDATA%\BeamNG\BeamNG.drive\current\media_state.json</code>. HTTP и WebSocket доступны
+                    только на этом компьютере: 127.0.0.1:12345 и 127.0.0.1:12346.</p>
+                <p id="error" class="error"></p>
+                <p id="notice" class="notice"></p>
+                <p id="artwork-status" class="notice"></p>
+            </section>
+        </div>
+
+        <footer>
+            <span>Windows 10/11</span>
+            <a href="https://t.me/mods_base" target="_blank" rel="noopener noreferrer">t.me/mods_base</a>
+        </footer>
+    </main>
+    <script src="renderer.js"></script>
+</body>
+
+</html>
