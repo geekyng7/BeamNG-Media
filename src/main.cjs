@@ -28,7 +28,7 @@ function fetchLatestRelease() {
 }
 Menu.setApplicationMenu(null);
 function createWindow() {
-  win = new BrowserWindow({ width:900,height:700,minWidth:740,minHeight:580,title:'BeamNG Media Bridge',backgroundColor:'#0b0e14',autoHideMenuBar:true,webPreferences:{preload:path.join(__dirname,'preload.cjs'),contextIsolation:true,nodeIntegration:false,sandbox:true} });
+  win = new BrowserWindow({ width:300,height:300,title:'BeamNG Media Bridge',backgroundColor:'#0b0e14',autoHideMenuBar:true,webPreferences:{preload:path.join(__dirname,'preload.cjs'),contextIsolation:true,nodeIntegration:false,sandbox:true} });
   win.setMenuBarVisibility(false);
   win.webContents.on('before-input-event',(event,input)=>{
     const key=input.key.toLowerCase();

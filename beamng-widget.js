@@ -27,20 +27,6 @@ angular.module('beamng.apps')
       'transition:background 350ms ease,border-color 350ms ease,box-shadow 350ms ease;' +
       '}' +
 
-      '.cp-bg{' +
-      'position:absolute;' +
-      'inset:-30%;' +
-      'z-index:0;' +
-      'pointer-events:none;' +
-      'background-size:cover;' +
-      'background-position:center;' +
-      'filter:blur(38px) saturate(1.7);' +
-      'opacity:0;' +
-      'transition:opacity 700ms ease;' +
-      '}' +
-      '.cp-bg.on{' +
-      'opacity:.38;' +
-      '}' +
       '.cp:before{' +
       'content:"";' +
       'position:absolute;' +
@@ -60,10 +46,6 @@ angular.module('beamng.apps')
       'box-shadow:none;' +
       'padding:0;' +
       'overflow:visible;' +
-      '}' +
-
-      '.cp.collapsed .cp-bg{' +
-      'opacity:0;' +
       '}' +
 
       '.cp.collapsed:before{' +
@@ -144,131 +126,6 @@ angular.module('beamng.apps')
 
       '.cp.collapsed .cp-collapse:hover{' +
       'transform:scale(1.08);' +
-      '}' +
-
-      '.cp-art-wrap{' +
-      'position:relative;' +
-      'width:min(78%,220px);' +
-      'aspect-ratio:1;' +
-      'margin:3px auto 8px;' +
-      'perspective:1400px;' +
-      'perspective-origin:50% 50%;' +
-      'flex-shrink:0;' +
-      '}' +
-
-      '.cp-art-wrap.playing:after{' +
-      'content:"";' +
-      'position:absolute;' +
-      'inset:-5px;' +
-      'border-radius:23px;' +
-      'border:1px solid rgba(255,255,255,.11);' +
-      'pointer-events:none;' +
-      'opacity:0;' +
-      'animation:cpGlow 2.8s ease-in-out infinite;' +
-      '}' +
-
-      '@keyframes cpGlow{' +
-      '0%,100%{opacity:.05;transform:scale(1)}' +
-      '50%{opacity:.32;transform:scale(1.025)}' +
-      '}' +
-
-      '.cp-art-card{' +
-      'position:relative;' +
-      'width:100%;' +
-      'height:100%;' +
-      'transform-style:preserve-3d;' +
-      'will-change:transform;' +
-      'transform:translateZ(0) rotateY(0deg);' +
-      'transition:transform 900ms cubic-bezier(.16,1,.3,1);' +
-      '}' +
-
-      '.cp-art-card.flip-next{' +
-      'transform:translateZ(0) rotateY(-180deg);' +
-      '}' +
-
-      '.cp-art-card.flip-prev{' +
-      'transform:translateZ(0) rotateY(180deg);' +
-      '}' +
-
-      '.cp-art-face{' +
-      'position:absolute;' +
-      'inset:0;' +
-      'border-radius:19px;' +
-      'overflow:hidden;' +
-      'backface-visibility:hidden;' +
-      '-webkit-backface-visibility:hidden;' +
-      'background:rgba(255,255,255,.065);' +
-      'border:1px solid rgba(255,255,255,.15);' +
-      'box-shadow:inset 0 1px 2px rgba(255,255,255,.1),0 9px 24px rgba(0,0,0,.3);' +
-      '}' +
-
-      '.cp-art-face:before{' +
-      'content:"";' +
-      'position:absolute;' +
-      'inset:0;' +
-      'z-index:3;' +
-      'pointer-events:none;' +
-      'background:linear-gradient(115deg,rgba(255,255,255,.13),transparent 30%,transparent 70%,rgba(255,255,255,.025));' +
-      '}' +
-
-      '.cp-art-face:after{' +
-      'content:"";' +
-      'position:absolute;' +
-      'inset:0;' +
-      'z-index:4;' +
-      'pointer-events:none;' +
-      'background:rgba(0,0,0,0);' +
-      'transition:background 900ms cubic-bezier(.16,1,.3,1);' +
-      '}' +
-
-      '.cp-art-card.flip-next .cp-art-front:after,' +
-      '.cp-art-card.flip-prev .cp-art-front:after{' +
-      'background:rgba(0,0,0,.12);' +
-      '}' +
-
-      '.cp-art-face img{' +
-      'width:100%;' +
-      'height:100%;' +
-      'object-fit:cover;' +
-      'display:block;' +
-      'transform:translateZ(0);' +
-      '}' +
-
-      '.cp-art-front{' +
-      'transform:rotateY(0deg);' +
-      '}' +
-
-      '.cp-art-back{' +
-      'transform:rotateY(180deg);' +
-      '}' +
-
-      '.cp-art-placeholder{' +
-      'width:100%;' +
-      'height:100%;' +
-      'display:flex;' +
-      'align-items:center;' +
-      'justify-content:center;' +
-      'font-size:34px;' +
-      'color:rgba(255,255,255,.2);' +
-      '}' +
-
-      '.cp-dot{' +
-      'position:absolute;' +
-      'top:6px;' +
-      'right:6px;' +
-      'width:6px;' +
-      'height:6px;' +
-      'border-radius:50%;' +
-      'background:rgba(255,255,255,.22);' +
-      'border:1px solid rgba(255,255,255,.4);' +
-      'transition:all 280ms ease;' +
-      'z-index:6;' +
-      '}' +
-
-      '.cp-dot.on{' +
-      'background:#4ade80;' +
-      'border-color:rgba(255,255,255,.7);' +
-      'box-shadow:0 0 8px rgba(74,222,128,.8);' +
       '}' +
 
       '.cp-info{' +
@@ -532,15 +389,6 @@ angular.module('beamng.apps')
       'cursor:pointer;' +
       '}' +
 
-      '.cp.compact .cp-art-wrap{' +
-      'width:min(68%,130px);' +
-      'margin:1px auto 5px;' +
-      '}' +
-
-      '.cp.compact .cp-art-face{' +
-      'border-radius:14px;' +
-      '}' +
-
       '.cp.compact .cp-title{' +
       'font-size:10px;' +
       '}' +
@@ -585,15 +433,6 @@ angular.module('beamng.apps')
       '.cp.tiny{' +
       'padding:5px;' +
       'border-radius:13px;' +
-      '}' +
-
-      '.cp.tiny .cp-art-wrap{' +
-      'width:min(58%,78px);' +
-      'margin:0 auto 4px;' +
-      '}' +
-
-      '.cp.tiny .cp-art-face{' +
-      'border-radius:10px;' +
       '}' +
 
       '.cp.tiny .cp-info{' +
@@ -645,11 +484,6 @@ angular.module('beamng.apps')
       'align-items:stretch;' +
       '}' +
 
-      '.cp.wide .cp-art-wrap{' +
-      'width:min(38%,180px);' +
-      'margin:4px auto 7px;' +
-      '}' +
-
       '.cp.wide .cp-info{' +
       'width:92%;' +
       '}' +
@@ -664,10 +498,6 @@ angular.module('beamng.apps')
 
       '.cp.wide .cp-middle{' +
       'margin-top:4px;' +
-      '}' +
-
-      '.cp.tall .cp-art-wrap{' +
-      'width:min(82%,260px);' +
       '}' +
 
       '.cp.tall .cp-title{' +
@@ -697,28 +527,10 @@ angular.module('beamng.apps')
 
       '<div class="cp" id="cp">' +
 
-      '  <div class="cp-bg" id="bg"></div>' +
 
       '  <button class="cp-collapse" id="btnCollapse" type="button">⌃</button>' +
 
       '  <div class="cp-content" id="cpContent">' +
-
-      '    <div class="cp-art-wrap" id="artWrap">' +
-      '      <div class="cp-art-card" id="artCard">' +
-
-      '        <div class="cp-art-face cp-art-front">' +
-      '          <div class="cp-dot" id="dot"></div>' +
-      '          <img id="art" style="display:none">' +
-      '          <div class="cp-art-placeholder" id="ph">♪</div>' +
-      '        </div>' +
-
-      '        <div class="cp-art-face cp-art-back">' +
-      '          <img id="artBack" style="display:none">' +
-      '          <div class="cp-art-placeholder" id="phBack">♪</div>' +
-      '        </div>' +
-
-      '      </div>' +
-      '    </div>' +
 
       '    <div class="cp-info" id="info">' +
       '      <div class="cp-title" id="trk">No Music</div>' +
@@ -751,13 +563,8 @@ angular.module('beamng.apps')
       var prevRaw = '';
       var seekDragging = false;
       var currentTrack = '';
-      var currentThumbnail = '';
-      var queuedFlip = null;
-      var animationTimer = null;
       var infoTimer = null;
       var resizeTimer = null;
-      var animationLocked = false;
-      var pendingDirection = 'next';
       var previousPlaying = false;
       var collapsed = false;
       var timelinePosition = 0;
@@ -776,113 +583,6 @@ angular.module('beamng.apps')
         s = s % 60;
 
         return m + ':' + (s < 10 ? '0' : '') + s;
-      }
-
-      function imageSource(thumbnail) {
-        if (!thumbnail) return "";
-        return /^data:image\//i.test(thumbnail)
-          ? thumbnail
-          : "data:image/jpeg;base64," + thumbnail;
-      }
-
-      function setAmbient(thumbnail) {
-        var bg = $('bg');
-        if (!thumbnail) {
-          bg.style.backgroundImage = '';
-          bg.classList.remove('on');
-          return;
-        }
-        var src = imageSource(thumbnail);
-        bg.style.backgroundImage = 'url("' + src + '")';
-        bg.classList.add('on');
-      }
-      function setImage(img, placeholder, thumbnail) {
-        img.onerror = function () {
-          img.removeAttribute('src');
-          img.style.display = 'none';
-          placeholder.style.display = 'flex';
-        };
-        if (thumbnail) {
-          img.src = imageSource(thumbnail);
-          img.style.display = 'block';
-          placeholder.style.display = 'none';
-        } else {
-          img.removeAttribute('src');
-          img.style.display = 'none';
-          placeholder.style.display = 'flex';
-        }
-      }
-
-      function prepareBack(thumbnail) {
-        var back = $('artBack');
-        var backPlaceholder = $('phBack');
-
-        back.onerror = function () {
-          back.removeAttribute('src');
-          back.style.display = 'none';
-          backPlaceholder.style.display = 'flex';
-        };
-        if (thumbnail) {
-          back.src = imageSource(thumbnail);
-          back.style.display = 'block';
-          backPlaceholder.style.display = 'none';
-        } else {
-          back.removeAttribute('src');
-          back.style.display = 'none';
-          backPlaceholder.style.display = 'flex';
-        }
-      }
-
-      function finishFlip(thumbnail) {
-        var card = $('artCard');
-
-        setImage(
-          $('art'),
-          $('ph'),
-          thumbnail
-        );
-
-        card.style.transition = 'none';
-        card.classList.remove('flip-next');
-        card.classList.remove('flip-prev');
-
-        void card.offsetWidth;
-
-        card.style.transition = '';
-
-        animationLocked = false;
-        currentThumbnail = thumbnail || '';
-      }
-
-      function flipTo(thumbnail) {
-        var card = $('artCard');
-
-        prepareBack(thumbnail);
-        setAmbient(thumbnail);
-
-        card.classList.remove('flip-next');
-        card.classList.remove('flip-prev');
-
-        void card.offsetWidth;
-
-        card.classList.add(
-          pendingDirection === 'prev'
-            ? 'flip-prev'
-            : 'flip-next'
-        );
-
-        clearTimeout(animationTimer);
-
-        animationTimer = setTimeout(function () {
-          finishFlip(thumbnail);
-          if (queuedFlip) {
-            var queued = queuedFlip;
-            queuedFlip = null;
-            pendingDirection = queued.direction;
-            animationLocked = true;
-            flipTo(queued.thumbnail);
-          }
-        }, 900);
       }
 
       function animateInfo() {
@@ -954,41 +654,6 @@ angular.module('beamng.apps')
           cp.classList.add('tall');
         }
 
-        var artWrap = $('artWrap');
-
-        if (!artWrap) return;
-
-        var maxByWidth = width * 0.78;
-        var maxByHeight = height * 0.52;
-
-        if (cp.classList.contains('wide')) {
-          maxByWidth = width * 0.38;
-          maxByHeight = height * 0.5;
-        }
-
-        if (cp.classList.contains('tiny')) {
-          maxByWidth = width * 0.58;
-          maxByHeight = height * 0.38;
-        }
-
-        if (cp.classList.contains('compact')) {
-          maxByWidth = width * 0.68;
-          maxByHeight = height * 0.42;
-        }
-
-        if (cp.classList.contains('tall')) {
-          maxByWidth = width * 0.82;
-          maxByHeight = height * 0.58;
-        }
-
-        var size = Math.min(
-          maxByWidth,
-          maxByHeight
-        );
-
-        if (size > 50) {
-          artWrap.style.width = Math.round(size) + 'px';
-        }
       }
 
       function resize() {
@@ -1031,10 +696,6 @@ angular.module('beamng.apps')
         var nextTrack =
           d.track || 'No Music';
 
-        var nextThumbnail =
-          d.thumbnail || '';
-        var thumbnailChanged = nextThumbnail !== currentThumbnail;
-
         var isPlaying =
           !!d.is_playing;
 
@@ -1067,37 +728,12 @@ angular.module('beamng.apps')
           .textContent =
           isPlaying ? '⏸' : '▶';
 
-        $('dot').className =
-          'cp-dot' +
-          (d.session ? ' on' : '');
-
-        $('artWrap').className =
-          'cp-art-wrap' +
-          (isPlaying ? ' playing' : '');
-
         timelineDuration = Math.max(0, Number(d.duration) || 0);
         timelinePosition = Math.max(0, Number(d.position) || 0);
         timelineUpdatedAt = Date.now();
         timelinePlaying = isPlaying;
         $('durT').textContent = fmt(timelineDuration);
         renderTimeline();
-
-        if (!currentTrack) {
-          setAmbient(nextThumbnail);
-          setImage(
-            $('art'),
-            $('ph'),
-            nextThumbnail
-          );
-          currentThumbnail = nextThumbnail;
-        } else if (trackChanged || thumbnailChanged) {
-          if (animationLocked) {
-            queuedFlip = { thumbnail: nextThumbnail, direction: pendingDirection };
-          } else {
-            animationLocked = true;
-            flipTo(nextThumbnail);
-          }
-        }
 
         currentTrack =
           nextTrack;
@@ -1149,7 +785,7 @@ angular.module('beamng.apps')
 
       $('btnPlay').onclick =
         function () {
-          ctrl('play');
+          ctrl(previousPlaying ? 'pause' : 'play');
 
           setTimeout(
             poll,
@@ -1159,9 +795,6 @@ angular.module('beamng.apps')
 
       $('btnNext').onclick =
         function () {
-          pendingDirection =
-            'next';
-
           ctrl('next');
 
           setTimeout(
@@ -1172,9 +805,6 @@ angular.module('beamng.apps')
 
       $('btnPrev').onclick =
         function () {
-          pendingDirection =
-            'prev';
-
           ctrl('prev');
 
           setTimeout(
@@ -1278,12 +908,7 @@ angular.module('beamng.apps')
             scope._mwT
           );
           clearInterval(scope._mwTimeline);
-
-          clearTimeout(
-            animationTimer
-          );
-
-          clearTimeout(
+clearTimeout(
             infoTimer
           );
 

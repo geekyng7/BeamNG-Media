@@ -11,7 +11,7 @@ BeamNG Media Bridge передаёт данные активного медиа-
 
 Возможности:
 
-- название трека, исполнитель, альбом и обложка;
+- название трека, исполнитель и альбом;
 - состояние воспроизведения и команды паузы, продолжения, следующего и предыдущего трека;
 - позиция и длительность трека передаются в игру для отображения движущегося таймлайна;
 - интерфейс приложения переключается между русским и английским языками; выбор сохраняется;
@@ -58,7 +58,7 @@ BeamNG Media Bridge передаёт данные активного медиа-
 
     {"action":"next"}
 
-Состояние включает track, artist, album, is_playing, thumbnail, position и duration. Обложка передаётся как data URL. Поддержка метаданных, обложек и команд зависит от того, что конкретный проигрыватель сообщает Windows.
+Состояние включает track, artist, album, is_playing, position и duration. Поддержка метаданных и команд зависит от того, что конкретный проигрыватель сообщает Windows.
 
 ## English
 
@@ -66,7 +66,7 @@ BeamNG Media Bridge forwards the active Windows media session to a BeamNG.drive 
 
 Features:
 
-- track title, artist, album, and artwork;
+- track title, artist, and album;
 - playback state and pause, resume, next-track, and previous-track commands;
 - track position and duration are sent to the game so the widget can display a moving timeline;
 - the desktop app can switch between Russian and English, and remembers the selection;
@@ -113,7 +113,7 @@ WebSocket commands are JSON, for example:
 
     {"action":"next"}
 
-The state includes track, artist, album, is_playing, thumbnail, position, and duration. Artwork is sent as a data URL. Metadata, artwork, and command support depend on what each media player publishes to Windows.
+The state includes track, artist, album, is_playing, position, and duration. Metadata and command support depend on what each media player publishes to Windows.
 
 ### Contributions
 @geekyng7
