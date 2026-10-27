@@ -156,20 +156,6 @@ ol {
     grid-column: 6 / -1;
 }
 
-.cover {
-    width: 88px;
-    height: 88px;
-    flex: none;
-    border-radius: 13px;
-    border: 1px solid var(--line);
-    background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, .06), rgba(255, 255, 255, .01)) center / cover no-repeat;
-    overflow: hidden;
-    display: grid;
-    place-items: center;
-    color: var(--muted);
-    font-size: 28px;
-}
-
 .meta {
     flex: 1;
     min-width: 0;
@@ -452,13 +438,7 @@ footer a:hover {
         gap: 14px;
     }
 
-    .cover {
-        width: 72px;
-        height: 72px;
-        border-radius: 11px;
-    }
-
-    .meta h2 {
+        .meta h2 {
         font-size: 16px;
     }
 }

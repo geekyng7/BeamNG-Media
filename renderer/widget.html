@@ -1,12 +1,23 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BeamNG Media Widget</title><style>
-*{box-sizing:border-box}body{margin:0;padding:18px;background:#10141c;color:#eef2fa;font:14px Segoe UI,Arial,sans-serif}.row{display:flex;gap:14px;align-items:center}.art{height:76px;width:76px;flex:none;border-radius:12px;background:#202c43 center/cover;display:grid;place-items:center;font-size:30px}.meta{min-width:0;flex:1}.track{font-weight:700;font-size:17px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.muted{color:#9aa7ba;margin-top:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.times{display:flex;justify-content:space-between;color:#8e9bb0;font-size:11px;margin-top:5px}.controls{display:flex;gap:8px;margin-top:10px;align-items:center}.controls button{background:#253147;color:white;border:0;border-radius:7px;padding:8px 12px;cursor:pointer}.controls button:hover{background:#354665}.state{color:#8895a9;font-size:10px;margin-top:8px}
-</style></head><body><div class="row"><div class="art" id="art">♪</div><div class="meta"><div class="track" id="track">Ожидание плеера</div><div class="muted" id="artist">Подключение…</div></div></div><div class="times"><span id="position">0:00</span><span id="duration">0:00</span></div><div class="controls"><button id="prev" aria-label="Предыдущий трек">⏮</button><button id="toggle" aria-label="Пауза или продолжение">▶</button><button id="next" aria-label="Следующий трек">⏭</button><span id="state">Ожидание</span></div>
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BeamNG Media Widget</title>
+<style>
+*{box-sizing:border-box}body{margin:0;padding:18px;background:#10141c;color:#eef2fa;font:14px Segoe UI,Arial,sans-serif}.meta{min-width:0}.track{font-weight:700;font-size:17px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.muted{color:#9aa7ba;margin-top:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.times{display:flex;justify-content:space-between;color:#8e9bb0;font-size:11px;margin-top:12px}.controls{display:flex;gap:8px;margin-top:10px;align-items:center}.controls button{background:#253147;color:white;border:0;border-radius:7px;padding:8px 12px;cursor:pointer}.controls button:hover{background:#354665}.state{color:#8895a9;font-size:10px;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="meta"><div class="track" id="track">Ожидание плеера</div><div class="muted" id="artist">Подключение…</div></div>
+<div class="times"><span id="position">0:00</span><span id="duration">0:00</span></div>
+<div class="controls"><button id="prev" aria-label="Предыдущий трек">⏮</button><button id="toggle" aria-label="Пауза или продолжение">▶</button><button id="next" aria-label="Следующий трек">⏭</button><span class="state" id="state">Ожидание</span></div>
 <script>
 const $=id=>document.getElementById(id);let current={};const fmt=n=>{n=Math.max(0,Math.floor((Number(n)||0)/1000));return `${Math.floor(n/60)}:${String(n%60).padStart(2,'0')}`};
-function paint(s){current=s;$('track').textContent=s.track||'Нет активного плеера';$('artist').textContent=[s.artist,s.album].filter(Boolean).join(' · ')||' ';$('position').textContent=fmt(s.position);$('duration').textContent=fmt(s.duration);$('toggle').textContent=s.is_playing?'Ⅱ':'▶';$('toggle').disabled=!s.session;$('state').textContent=s.error||(s.session?(s.is_playing?'Играет':'Пауза'):'Нет активного медиа-сеанса');const art=$('art');if(s.thumbnail){art.style.backgroundImage=`url("${s.thumbnail}")`;art.textContent='';}else if(!s.session||Object.prototype.hasOwnProperty.call(s,'thumbnail')){art.style.backgroundImage='';art.textContent='♪';}}
+function paint(s){current=s;$('track').textContent=s.track||'Нет активного плеера';$('artist').textContent=[s.artist,s.album].filter(Boolean).join(' · ')||' ';$('position').textContent=fmt(s.position);$('duration').textContent=fmt(s.duration);$('toggle').textContent=s.is_playing?'Ⅱ':'▶';$('toggle').disabled=!s.session;$('state').textContent=s.error||(s.session?(s.is_playing?'Играет':'Пауза'):'Нет активного медиа-сеанса');}
 async function getStatus(){try{const r=await fetch('http://127.0.0.1:12345/status');paint(await r.json());}catch{$('state').textContent='Запустите BeamNG Media Bridge';}}
-$('prev').onclick=()=>sendTrack('prev');$('next').onclick=()=>sendTrack('next');async function sendTrack(action){try{const r=await fetch('http://127.0.0.1:12345/api/'+action,{method:'POST'});const result=await r.json();if(!r.ok)$('state').textContent=result.error||'Команда не выполнена';}catch{$('state').textContent='Нет соединения с локальным мостом';}}$('toggle').onclick=async()=>{try{const action=current.is_playing?'pause':'play';const r=await fetch(`http://127.0.0.1:12345/api/${action}`,{method:'POST'});const result=await r.json();if(!r.ok)$('state').textContent=result.error||'Команда не выполнена';}catch{$('state').textContent='Нет соединения с локальным мостом';}};
+$('prev').onclick=()=>sendTrack('prev');$('next').onclick=()=>sendTrack('next');async function sendTrack(action){try{const r=await fetch('http://127.0.0.1:12345/api/'+action,{method:'POST'});const result=await r.json();if(!r.ok)$('state').textContent=result.error||'Команда не выполнена';}catch{$('state').textContent='Нет соединения с локальным мостом';}}
+$('toggle').onclick=async()=>{try{const action=current.is_playing?'pause':'play';const r=await fetch('http://127.0.0.1:12345/api/'+action,{method:'POST'});const result=await r.json();if(!r.ok)$('state').textContent=result.error||'Команда не выполнена';}catch{$('state').textContent='Нет соединения с локальным мостом';}};
 getStatus();try{const ws=new WebSocket('ws://127.0.0.1:12346');ws.onmessage=e=>{try{paint(JSON.parse(e.data))}catch{}};ws.onclose=()=>setTimeout(getStatus,1200);}catch{}setInterval(()=>{if(!current.session)getStatus()},3000);
-</script></body></html>
-
-
+</script>
+</body>
+</html>
