@@ -1,0 +1,57 @@
+{
+  "name": "beamng-media-bridge",
+  "version": "1.0.0",
+  "description": "Local Windows media bridge for a BeamNG.drive widget",
+  "main": "src/main.cjs",
+  "author": "",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "build:native": "dotnet publish native/MediaBridge/MediaBridge.csproj -c Release -r win-x64 -p:PublishSingleFile=true -p:SelfContained=true -o native/MediaBridge/bin/Release/net8.0-windows10.0.19041.0/win-x64/publish",
+    "dist": "npm run build:native && electron-builder --win nsis"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "electron": "^38.2.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "local.beamng.media.bridge",
+    "productName": "BeamNG Media Bridge",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "src/**/*",
+      "renderer/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "native/MediaBridge/bin/Release/net8.0-windows10.0.19041.0/win-x64/publish/media-helper.exe",
+        "to": "media-helper.exe"
+      }
+    ],
+    "asar": true,
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "artifactName": "BeamNG-Media-Bridge-${version}-Setup.${ext}",
+      "icon": "circ1.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true
+    }
+  },
+  "allowScripts": {
+    "electron": true,
+    "electron-winstaller": true
+  }
+}

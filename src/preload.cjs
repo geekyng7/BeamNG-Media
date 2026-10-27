@@ -1,0 +1,2 @@
+const { contextBridge, ipcRenderer } = require('electron');
+contextBridge.exposeInMainWorld('bridge',{getState:()=>ipcRenderer.invoke('get-state'),openBeamngFolder:()=>ipcRenderer.invoke('open-beamng-folder'),command:(action,values)=>ipcRenderer.invoke('media-command',action,values),onState:callback=>{const listener=(_event,state)=>callback(state);ipcRenderer.on('state',listener);return()=>ipcRenderer.removeListener('state',listener);}});
