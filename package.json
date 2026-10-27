@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Local Windows media bridge for a BeamNG.drive widget",
   "main": "src/main.cjs",
-  "author": "",
+  "author": "geekyng7",
   "license": "MIT",
   "scripts": {
     "start": "electron .",
@@ -24,7 +24,7 @@
     "appId": "local.beamng.media.bridge",
     "productName": "BeamNG Media Bridge",
     "directories": {
-      "output": "release"
+      "output": "BeamNG-Media"
     },
     "files": [
       "src/**/*",

@@ -1,5 +1,5 @@
 const $ = id => document.getElementById(id);
-let current = {}, pending = false, noticeMessage = '';
+let current = {}, pending = false, noticeMessage = '', releaseUrl = '';
 let language = localStorage.getItem('beamng-media-bridge-language') === 'en' ? 'en' : 'ru';
 
 const strings = {
@@ -41,7 +41,8 @@ const strings = {
     languageLabel: 'EN',
     languageAria: 'Switch to English',
     genericMediaError: 'Не удалось получить данные Windows Media.',
-    genericCoverError: 'Ошибка чтения обложки.'
+    genericCoverError: 'Ошибка чтения обложки.',
+    checkUpdates: 'Проверить обновления', openRelease: 'Открыть страницу релиза', checkingUpdates: 'Проверяю обновления…', updateAvailable: 'Доступна версия {version}.', upToDate: 'У вас последняя версия ({version}).', noRelease: 'Публичный релиз пока не найден.', updateFailed: 'Не удалось проверить обновления.', invalidReleaseTag: 'Тег релиза должен иметь вид v1.2.3.'
   },
   en: {
     launchGame: 'Launch the game',
@@ -81,7 +82,8 @@ const strings = {
     languageLabel: 'RU',
     languageAria: 'Переключить на русский',
     genericMediaError: 'Could not read Windows media information.',
-    genericCoverError: 'Could not read artwork.'
+    genericCoverError: 'Could not read artwork.',
+    checkUpdates: 'Check for updates', openRelease: 'Open release page', checkingUpdates: 'Checking for updates…', updateAvailable: 'Version {version} is available.', upToDate: 'You have the latest version ({version}).', noRelease: 'No public release was found.', updateFailed: 'Could not check for updates.', invalidReleaseTag: 'Release tag must look like v1.2.3.'
   }
 };
 
@@ -193,3 +195,16 @@ window.bridge.getState().then(render);
 window.bridge.onState(render);
 $('toggle').addEventListener('click', toggle);
 $('folder').addEventListener('click', () => window.bridge.openBeamngFolder());
+$('check-updates').addEventListener('click', async () => {
+  const button=$('check-updates'), status=$('update-status'), link=$('release-link');
+  button.disabled=true; status.textContent=t('checkingUpdates'); releaseUrl=''; link.hidden=true;
+  try {
+    const result=await window.bridge.checkForUpdates();
+    if(result.noRelease) status.textContent=t('noRelease');
+    else if(!result.ok) status.textContent=result.error==='Release tag must match v1.2.3'?t('invalidReleaseTag'):t('updateFailed')+' '+result.error;
+    else if(result.updateAvailable){status.textContent=t('updateAvailable').replace('{version}',result.latestVersion);releaseUrl=result.releaseUrl;link.hidden=false;}
+    else status.textContent=t('upToDate').replace('{version}',result.currentVersion);
+  } catch(error){status.textContent=t('updateFailed')+' '+error.message;}
+  finally{button.disabled=false;}
+});
+$('release-link').addEventListener('click',async event=>{event.preventDefault();if(releaseUrl)await window.bridge.openRelease(releaseUrl);});
