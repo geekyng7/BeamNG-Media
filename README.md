@@ -116,5 +116,5 @@ WebSocket commands are JSON, for example:
 The state includes track, artist, album, is_playing, thumbnail, position, and duration. Artwork is sent as a data URL. Metadata, artwork, and command support depend on what each media player publishes to Windows.
 
 ### Contributions
-https://github.com/geekyng7
-Codex
+@geekyng7
+\nCodex
