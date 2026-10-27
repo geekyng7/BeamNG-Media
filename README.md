@@ -38,10 +38,10 @@ BeamNG Media Bridge передаёт данные активного медиа-
 
 ### Подключение виджета
 
-1. Установите BeamNG Media Bridge и оставьте приложение запущенным.
-2. Добавьте beamng-widget.js в пользовательский UI-мод BeamNG.drive.
-3. В игре добавьте виджет через меню Apps.
-4. Убедитесь, что музыка воспроизводится в приложении, которое публикует медиа-сеанс Windows.
+1. Скачайте установщик и установите приложение/распакуйте архив.
+2. Скачайте виджет (BeamNG-Media.zip)
+3. Добавьте виджет в BeamNG.drive через меню Apps.
+4. Запустите музыку в Windows и оставьте BeamNG Media открытым.
 
 Приложение записывает состояние в:
 
@@ -62,43 +62,43 @@ BeamNG Media Bridge передаёт данные активного медиа-
 
 ## English
 
-BeamNG Media Bridge forwards the active Windows media session to a BeamNG.drive widget.
+BeamNG Media Bridge transmits data from the active Windows media session to the BeamNG.drive widget.
 
 Features:
 
-- track title, artist, album, and artwork;
-- playback state and pause, resume, next-track, and previous-track commands;
-- track position and duration are sent to the game so the widget can display a moving timeline;
-- the desktop app can switch between Russian and English, and remembers the selection;
-- local communication uses 127.0.0.1; media information is not sent to the internet.
+- track name, artist, album, and cover;
+- playback status and commands for pause, play, next, and previous tracks;
+- track position and duration are transmitted to the game to display a moving timeline;
+- the app interface switches between Russian and English; the selection is saved;
+- local data exchange via 127.0.0.1 — the app does not send media information to the internet.
 
 ### Requirements
 
-- Windows 10 version 1809 or later, or Windows 11, x64;
-- Node.js 22.12 or later and npm to run from source and build;
-- the Windows SDK is only needed to regenerate the WinRT bindings. Generated files are included in src/winrt-generated.
+- Windows 10 version 1809 or newer, or Windows 11, x64;
+- Node.js 22.12 or newer and npm — for running from source and building;
+- Windows SDK is needed only for regenerating WinRT bindings. The generated files are already located in src/winrt-generated.
 
-### Run and build
+### Running and building
 
-From the project folder:
+In the project folder, run:
 
     npm install
     npm start
 
-Build the Windows NSIS installer:
+Create a Windows installer using NSIS:
 
     npm run dist
 
-The installer is created in the release folder. The normal build does not require the .NET SDK.
+The build result will appear in the release folder. For a regular build, .NET SDK is not required.
 
-### Add the BeamNG widget
+### Adding a widget
 
-1. Install BeamNG Media Bridge and keep it running.
-2. Add beamng-widget.js to a BeamNG.drive user-interface mod.
-3. Add the widget from the in-game Apps menu.
-4. Make sure music is playing in an app that publishes a Windows media session.
+1. Download the installer and install the application/unpack the archive.
+2. Download the widget (BeamNG-Media.zip)
+3. Add the widget to BeamNG.drive via the Apps menu.
+4. Play music in Windows and leave BeamNG Media open.
 
-The bridge writes its state to:
+The application records the state in:
 
     %LOCALAPPDATA%\BeamNG\BeamNG.drive\current\media_state.json
 
@@ -109,11 +109,11 @@ Local bridge interfaces:
 - Status: GET /status
 - Commands: /api/play, /api/pause, /api/next, /api/prev
 
-WebSocket commands are JSON, for example:
+JSON commands can be sent over WebSocket, for example:
 
     {"action":"next"}
 
-The state includes track, artist, album, is_playing, thumbnail, position, and duration. Artwork is sent as a data URL. Metadata, artwork, and command support depend on what each media player publishes to Windows.
+The state includes track, artist, album, is_playing, thumbnail, position, and duration. The cover is transmitted as a data URL. Support for metadata, covers, and commands depends on what the specific player reports to Windows.
 
 ### Contributions
 @geekyng7
